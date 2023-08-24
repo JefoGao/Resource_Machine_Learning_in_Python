@@ -28,3 +28,27 @@ np.arrange(0, 2, 0.3)
 ```
 
 ## 1.2 Array Attributes
+```py
+# the class of numpy array is ndarray
+ndarray.ndim # number of dimensions (axes)
+ndarray.shape # the dimension
+ndarray.size # number of elements
+ndarray.dtype # the type of elements
+```
+```py
+np.arrange(15).reshape(3,5) # generate 3x5 matrix with value 0 - 14, dtype=int64
+```
+
+## 1.3 Array Indexing
+```py
+# slicing
+a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
+b = a[:2, 1:3]
+```
+```py
+# mixing integer indexing with slicing
+row_r1 = a[1, :]    # Rank 1 view of the second row of a
+row_r2 = a[1:2, :]  # Rank 2 view of the second row of a
+print(row_r1, row_r1.shape)  # Prints "[5 6 7 8] (4,)"
+print(row_r2, row_r2.shape)  # Prints "[[5 6 7 8]] (1, 4)"
+```
