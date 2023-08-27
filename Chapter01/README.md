@@ -61,3 +61,26 @@ print(col_r2, col_r2.shape)  # Prints "[[ 2]
                              #          [ 6]
                              #          [10]] (3, 1)"
 ```
+```py
+# integer array indexing
+a = np.array([[1,2], [3, 4], [5, 6]])
+
+# access elements (0,0), (1,1), (2,0)
+print(a[[0, 1, 2], [0, 1, 0]])  # Prints "[1 4 5]"
+# The above example of integer array indexing is equivalent to this:
+print(np.array([a[0, 0], a[1, 1], a[2, 0]]))
+
+# you can reuse the same element
+print(a[[0, 0], [1, 1]])  # Prints "[2 2]"
+
+# mutate one element from each row
+a[np.arange(4), np.array([0,2,0,1])] += 10
+```
+```py
+# boolean array indexing
+a = np.array([[1,2], [3, 4], [5, 6]])
+bool_idx = (a > 2)
+print(bool_idx)      # Prints "[[False False]
+                     #          [ True  True]
+                     #          [ True  True]]"
+```
