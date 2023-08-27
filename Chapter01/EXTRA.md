@@ -158,3 +158,39 @@ print(X)
 #  [0. 0. 0. 1. 0.]
 #  [0. 0. 0. 0. 1.]]
 ```
+# 1.12 NumPy Broadcasting
+```py
+# We will add the vector v to each row of the matrix x,
+# storing the result in the matrix y
+x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+y = np.empty_like(x)   # Create an empty matrix with the same shape as x
+for i in range(4):
+    y[i, :] = x[i, :] + v
+print(y)
+
+# [[ 2  2  4]
+#  [ 5  5  7]
+#  [ 8  8 10]
+#  [11 11 13]]
+```
+```py
+# however when the matrix x is very large
+# computing an explicit loop could be slow
+x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+vv = np.tile(v, (4, 1)) # Stack 4 copies of v
+y = x + vv
+```
+```py
+# alternatively, using NumPy broadcasting
+x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+y = x + v  # Add v to each row of x using broadcasting
+```
+Broadcasting two arrays together follows these rules:
+1. If the arrays do not have the same rank, prepend the shape of the lower rank array with 1s until both shapes have the same length.
+2. The two arrays are said to be compatible in a dimension if they have the same size in the dimension, or if one of the arrays has size 1 in that dimension.
+3. The arrays can be broadcast together if they are compatible in all dimensions.
+4. After broadcasting, each array behaves as if it had shape equal to the elementwise maximum of shapes of the two input arrays.
+5. In any dimension where one array had size 1 and the other array had size greater than 1, the first array behaves as if it were copied along that dimension
