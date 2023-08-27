@@ -83,4 +83,19 @@ bool_idx = (a > 2)
 print(bool_idx)      # Prints "[[False False]
                      #          [ True  True]
                      #          [ True  True]]"
+
+print(a[bool_idx])  # Prints "[3 4 5 6]"
+print(a[a > 2])     # Prints "[3 4 5 6]"
 ```
+```py
+# one more example
+a = np.arange(10)**3 # [  0   1   8  27  64 125 216 343 512 729]
+a[2] # 8
+a[2:5] # array([ 8, 27, 64], dtype=int32)
+a[:6:2] = -1000    # equivalent to a[0:6:2] = -1000;
+# [-1000     1 -1000    27 -1000   125   216   343   512   729]
+a[::-1] # reversed a
+# array([729, 512, 343, 216, 125,  64,  27,   8,   1,   0])
+```
+## 1.4 Array Math
+
