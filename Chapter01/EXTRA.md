@@ -48,4 +48,57 @@ f.close()
 ```
 # 1.10 Read CSV Files
 ```py
+import csv
+csvFile = open("files/test.csv", "r") 
+reader = csv.reader(csvFile, delimiter=',')
+# load the data in a dictionary 
+result = {}
+for item in reader:
+    # ignore the first line
+    if reader.line_num == 1:
+        continue    
+    result[item[0]] = item[1]
+csvFile.close()
+print(result)
+
+# {'Ali': '25', 'Bob': '24', 'Chirs': '29'}
+```
+# 1.11 Write CSV Files
+```py
+import csv
+
+fileHeader = ["name", "age"]
+d1 = ["Chris", "27"]
+d2 = ["Ming", "26"]
+
+csvFile = open("files/write.csv", "w")
+writer = csv.writer(csvFile)
+
+# write the head and data
+writer.writerow(fileHeader)
+writer.writerow(d1)
+writer.writerow(d2)
+
+# Here is another command 
+# writer.writerows([fileHeader, d1, d2])
+
+csvFile.close()
+```
+# 1.12 Using Pandas to Read CSV Files
+```py
+import pandas as pd
+import numpy as np
+
+data = pd.read_csv("files/test.csv")
+print(data) # data is pandas dataframe
+
+# extract the age data
+Age = np.array(data.Age, dtype = 'double')
+print(Age)
+
+# reshape this age vector
+# NumPy allows you to ese either tuples or lists to specify the new shape
+Age = np.reshape(Age, [3,1])
+# or Age = np.reshape(Age, (3,1))
+print(Age)
 ```
