@@ -26,7 +26,10 @@ np.random.random((2,2)) # random values from 0 - 1
 np.arrange(10, 30, 5)
 np.arrange(0, 2, 0.3)
 ```
-
+```py
+arr = np.arange(9).reshape(3,3)
+new_arr = arr[:, [1,0,2]] # keep all row (order), swap the col order
+```
 ## 1.2 Array Attributes
 ```py
 # the class of numpy array is ndarray
