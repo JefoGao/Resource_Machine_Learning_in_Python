@@ -98,4 +98,47 @@ a[::-1] # reversed a
 # array([729, 512, 343, 216, 125,  64,  27,   8,   1,   0])
 ```
 ## 1.4 Array Math
+```py
+x = np.array([[1,2],[3,4]], dtype=np.float64)
+y = np.array([[5,6],[7,8]], dtype=np.float64)
 
+# addition, elementwise
+print(x + y)
+print(np.add(x, y))
+# subtraction, elementwise
+print(x - y)
+print(np.subtract(x, y))
+# product, elementwise
+print(x * y)
+print(np.multiply(x, y))
+# division, elementwise
+print(x / y)
+print(np.divide(x, y))
+# square root, elementwise
+print(np.sqrt(x))
+
+# inner product of vectors
+v = np.array([9,10])
+w = np.array([11, 12])
+# both product 219
+print(v.dot(w))
+print(np.dot(v, w))
+
+# matrix / vector product; both produce the rank 1 array [29 67]
+print(x.dot(v))
+print(np.dot(x, v))
+
+# matrix / matrix product; both produce the rank 2 array
+# [[19 22]
+#  [43 50]]
+print(x.dot(y))
+print(np.dot(x, y))
+```
+```py
+# numpy sum
+x = np.array([[1,2],[3,4]])
+
+print(np.sum(x))  # Compute sum of all elements; prints "10"
+print(np.sum(x, axis=0))  # Compute sum of 1st dim; prints "[4 6]"
+print(np.sum(x, axis=1))  # Compute sum of 2nd dim; prints "[3 7]"
+```
