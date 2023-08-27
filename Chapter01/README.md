@@ -142,3 +142,58 @@ print(np.sum(x))  # Compute sum of all elements; prints "10"
 print(np.sum(x, axis=0))  # Compute sum of 1st dim; prints "[4 6]"
 print(np.sum(x, axis=1))  # Compute sum of 2nd dim; prints "[3 7]"
 ```
+```py
+# transpose
+x = np.array([[1,2], [3,4]])
+print(x)    # Prints "[[1 2]
+            #          [3 4]]"
+print(x.T)  # Prints "[[1 3]
+            #          [2 4]]"
+
+# Note that taking the transpose of a rank 1 array does nothing:
+v = np.array([1,2,3])
+print(v)    # Prints "[1 2 3]"
+print(v.T)  # Prints "[1 2 3]"
+```
+NumPy provides familiar mathematical functions such as sin, cos, and exp. In NumPy, these are called “universal functions”(ufunc). Within NumPy, these functions operate elementwise on an array, producing an array as output.
+## 1.5 Reshape an Array
+```py
+a = np.floor(10*np.random.random((3,4))) #np.random.random() Return random floats in [0.0, 1.0).
+# array([[7., 1., 7., 7.],
+#        [0., 2., 8., 4.],
+#        [6., 8., 2., 2.]])
+a.ravel()  # returns the array, flattened
+# array([7., 1., 7., 7., 0., 2., 8., 4., 6., 8., 2., 2.])
+a.reshape(6,2)  # returns the array with a modified shape
+a.T  # returns the array, transposed
+```
+## 1.6 Stacking Arrays
+```py
+a = np.floor(10*np.random.random((2,2)))
+b = np.floor(10*np.random.random((2,2)))
+
+np.vstack((a,b)) # vertical stacking
+np.hstack((a,b)) # horizontal stacking
+```
+## 1.7 Splitting an Array
+```py
+a = np.floor(10*np.random.random((2,12)))
+# array([[1., 7., 5., 7., 6., 0., 9., 1., 0., 9., 8., 0.],
+#        [3., 6., 6., 5., 7., 8., 8., 2., 7., 0., 8., 4.]])
+
+np.hsplit(a,3)   # Split a into 3
+# [array([[1., 7., 5., 7.],
+#         [3., 6., 6., 5.]]),
+#  array([[6., 0., 9., 1.],
+#         [7., 8., 8., 2.]]),
+#  array([[0., 9., 8., 0.],
+#         [7., 0., 8., 4.]])]
+
+np.hsplit(a,(3,4))   # Split a after the third and the fourth column
+# [array([[3., 6., 1.],
+#         [6., 2., 8.]]),
+#  array([[3.],
+#         [4.]]),
+#  array([[7., 0., 5., 7., 4., 1., 9., 0.],
+#         [5., 5., 4., 1., 0., 2., 6., 4.]])]
+```
