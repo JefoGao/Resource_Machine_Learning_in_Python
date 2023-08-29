@@ -99,5 +99,10 @@ dataset.describe()
 ![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/dfdc61a0-525b-4290-9085-630d55eeffb0)
 ### 2.2.3 Handle Categorical Data
 ```py
-
+# check value count for the categorical variables
+print(dataset.fuel.value_counts(),"\n")
+print(dataset.seller_type.value_counts(),"\n")
+print(dataset.transmission.value_counts(), "\n")
+print(dataset.owner.value_counts())
 ```
+![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/b56d85f3-d985-4771-916a-618108560746)
