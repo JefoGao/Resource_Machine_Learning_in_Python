@@ -10,7 +10,7 @@ dataset.head()
 ![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/2f7c0c4c-2b58-42b7-b042-996e6aeafe38)
 
 ## 2.2 Data Preprocessing
-### 2.2.1 Handle Missing and Duplicated Data
+### 2.2.1 Handle Missing & Duplicated Data
 ```py
 # drop columns
 dataset.drop(['name'], axis=1, inplace=True)
@@ -106,3 +106,25 @@ print(dataset.transmission.value_counts(), "\n")
 print(dataset.owner.value_counts())
 ```
 ![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/b56d85f3-d985-4771-916a-618108560746)
+```py
+# ordinal encoding
+dataset['owner'] = dataset['owner'].replace({'First Owner': 1, 'Second Owner': 2, 'Third Owner': 3})
+dataset.head()
+```
+![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/bd762eab-a2f8-49fd-8a1c-4bb38c2c5a00)
+```py
+# nominal variable
+dataset = pd.get_dummies(dataset, columns=['fuel', 'seller_type', 'transmission'])
+dataset.head() 
+```
+![image](https://github.com/JefoGao/Resource_Machine_Learning_in_Python/assets/19381768/c39907ff-be74-4100-b574-a6df1842abe8)
+```py
+# check dataset shape
+dataset.shape # (6539, 17)
+
+# define the input variables and the target variable
+# target variable is the selling_price, and input variables are the rest of the columns
+array = dataset.values
+X = array[:,1:17]
+y = array[:,0]
+```
