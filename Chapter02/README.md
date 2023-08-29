@@ -128,3 +128,112 @@ array = dataset.values
 X = array[:,1:17]
 y = array[:,0]
 ```
+## 2.3 Split and Normalize data
+```py
+# split the training and testing dataset
+# randomly sample the dataset with a random state of 123
+# use 90% for training and 10% for testing use
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=123)
+```
+```py
+# apply normalization on both train and testing dataset
+
+from sklearn.preprocessing import MinMaxScaler
+norm = MinMaxScaler().fit(X_train) # fit scaler on training data
+X_train_norm = norm.transform(X_train) # transform training data
+X_test_norm = norm.transform(X_test) # transform testing data
+```
+## 2.4 Model Training
+Approach 1: Train the model based on entire training dataset and then evaluate the model based on testing dataset
+Example of how to build a Linear Regression (LR) model
+```py
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(X_train_norm, y_train)
+test_score = model.score(X_test_norm, y_test)
+print("R2 of LR:", test_score)
+
+# R2 of LR: 0.5917399630409528
+```
+Approach 2: Train the model based on training dataset with cross validation and then evaluate the model based on testing dataset
+1) Define a 10 fold cross validation with data shufflling and set the random state with 123
+benefits of cross validation: the model can be more generalized, and less prone to be over-fiited. Normally value of k is 5 or 10
+```py
+from sklearn.model_selection import KFold
+kfold = KFold(n_splits=10, shuffle=True, random_state=123)
+# set 10-fold cross validation after shuffle the dataset with random seed 123
+```
+2) Run 10-fold cross validation and print the average r-squared score based on the cross validation results
+For a regression task, the default evaluation metrics is r squared.
+```py
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LinearRegression
+
+# basic training of the linear regression model
+# define a LR model with default parameter setting
+lr = LinearRegression()
+# run the previously defined 10-fold validation on the dataset
+results = cross_val_score(lr, X_train_norm, y_train, cv=kfold)
+# print the averae r squared scores
+print("Average R2 of LR:",results.mean())
+
+# Average R2 of LR: 0.6301286590968103
+```
+Optimize the LR Models with Cross Validation
+```py
+# fine tune parameters for lr model
+from sklearn.model_selection import GridSearchCV
+
+grid_params_lr = {
+    'fit_intercept': [True, False],
+    'normalize': [True, False]
+}
+
+lr = LinearRegression()
+gs_lr_result = GridSearchCV(lr, grid_params_lr, cv=kfold).fit(X_train_norm, y_train)
+print(gs_lr_result.best_score_)
+
+# 0.6301286590968103
+```
+# 2.4 Evaluate, Predict & Save
+Evaluate a trained model using testing dataset
+```py
+# use the best model and evaluate on testing set
+test_R2 = gs_lr_result.best_estimator_.score(X_test_norm, y_test)
+print("R2 in testing:", test_R2)
+# R2 in testing: 0.5917399630409526
+
+# check the parameter setting for the best selected model
+gs_lr_result.best_params_
+# {'fit_intercept': True, 'normalize': True}
+```
+Predict with a trained model
+```py
+# predict with the first 5 data points
+y_predict = gs_lr_result.best_estimator_.predict(X_test_norm[:5]) 
+print(y_predict)
+
+# [1214499.9736509   337037.49493902  551382.04202298  143190.56974847 498800.41080653]
+```
+Save and load a trained model
+```py
+import pickle
+
+# Save to file in the current working directory
+pkl_filename = "lr_model.pkl"  
+with open(pkl_filename, 'wb') as file:  
+    pickle.dump(gs_lr_result.best_estimator_, file)
+
+# Load from file
+with open(pkl_filename, 'rb') as file:  
+    pickle_model = pickle.load(file)
+
+# Calculate the accuracy score and predict target values
+score = pickle_model.score(X_test_norm, y_test)  
+print("R2 score:", score)
+
+# R2 score: 0.5917399630409526
+```
