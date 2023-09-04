@@ -19,7 +19,7 @@ print('prediction:',kmeans.predict([[0, 0], [12, 3]])) # prediction: [1 0]
 print('kmeans.cluster_centers_:',kmeans.cluster_centers_)
 # kmeans.cluster_centers_: [[10.  2.] [ 1.  2.]]
 ```
-## 3.1 Kmeans - case 2
+## 3.2 Kmeans - case 2
 ```py
 import numpy as np
 import matplotlib.pyplot as plt
